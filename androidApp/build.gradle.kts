@@ -52,8 +52,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine")
 
     implementation("io.insert-koin:koin-android:$koinAndroid")
-    /*implementation("io.insert-koin:koin-androidx-navigation:$koinAndroid")
-    implementation("io.insert-koin:koin-androidx-compose:$koinAndroidCompose")*/
+    /*implementation("io.insert-koin:koin-androidx-navigation:$koinAndroid")*/
+    implementation("io.insert-koin:koin-androidx-compose:$koinAndroidCompose")
 
-    implementation("io.coil-kt:coil:$coilVersion")
+    implementation("io.coil-kt:coil-compose:$coilVersion")
 }

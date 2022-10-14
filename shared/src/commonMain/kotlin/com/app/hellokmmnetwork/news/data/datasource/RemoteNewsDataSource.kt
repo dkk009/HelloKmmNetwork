@@ -10,8 +10,7 @@ interface RemoteNewsDataSource {
     suspend fun fetchNewsFeed(): Result<NewsFeedResp>
 }
 
-private val NEWS_FEED_URL = ""
-
+private const val NEWS_FEED_URL = "everything?q=tesla&from=2022-09-14&sortBy=publishedAt"
 class RemoteNewsDataSourceImpl(private val client: HttpClient) : KoinComponent,
     RemoteNewsDataSource {
     override suspend fun fetchNewsFeed(): Result<NewsFeedResp> {
