@@ -70,11 +70,10 @@ fun HomeScreen(navHostController: NavHostController) {
                     )
                 }
             }
-            else -> {
-
+            is NewsFeedState.None -> {
+                //Ignore the state.
             }
         }
-
     }
 }
 
