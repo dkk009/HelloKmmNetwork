@@ -18,15 +18,17 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "2.1.2"
-        val koinVersion = "3.2.0"
-        val serializationVersion = "1.4.0"
+        val ktorVersion = "2.1.0"
+        val koinVersion = "3.2.1"
+        val serializationVersion = "1.3.3"
         val commonMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 // Serialization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
                 //Koin
@@ -54,7 +56,7 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
         val iosX64Test by getting

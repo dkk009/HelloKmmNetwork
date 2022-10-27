@@ -3,6 +3,7 @@ package com.app.hellokmmnetwork.android.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.hellokmmnetwork.network.AppRequest
 import com.app.hellokmmnetwork.news.data.entity.Articles
 import com.app.hellokmmnetwork.news.usecase.NewsFeedUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,13 +30,26 @@ class HomeViewModel(private val newsFeedUseCase: NewsFeedUseCase) : ViewModel() 
     fun getNewsFeed() {
         viewModelScope.launch {
             newsFeedState.value = NewsFeedState.Loading
-            newsFeedUseCase.invoke().onFailure {
+            when(val data = newsFeedUseCase.invoke()) {
+                is AppRequest.Result<*>->{
+                    (data.result as List<Articles>).run {
+                        newsFeedState.value = NewsFeedState.Success(this)
+                    }
+                }
+                is AppRequest.Error->{
+                    newsFeedState.value = NewsFeedState.Error(data.error.message ?: "Something went wrong")
+                }
+                is AppRequest.Loading->{
+                    newsFeedState.value = NewsFeedState.Loading
+                }
+            }
+            /*newsFeedUseCase.invoke().onFailure {
                 Log.d("HomeViewModel", "NewsFeed:$it")
                 newsFeedState.value = NewsFeedState.Error(it.message ?: "Something went wrong")
             }.onSuccess {
                 newsFeedState.value = NewsFeedState.Success(it)
                 Log.d("HomeViewModel", "NewsFeed:$it")
-            }
+            }*/
         }
     }
 }

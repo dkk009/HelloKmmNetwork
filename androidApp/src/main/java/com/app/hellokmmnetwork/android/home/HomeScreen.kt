@@ -65,7 +65,7 @@ fun HomeScreen(navHostController: NavHostController) {
                     Spacer(modifier = Modifier.height(60.dp))
                     Text(
                         text = (viewModelState.value as NewsFeedState.Error).error,
-                        style = MaterialTheme.typography.h3,
+                        style = MaterialTheme.typography.body2,
                         color = MaterialTheme.colors.error
                     )
                 }

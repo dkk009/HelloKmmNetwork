@@ -1,9 +1,10 @@
 package com.app.hellokmmnetwork.news.data.entity
+import kotlinx.serialization.Serializable
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class NewsFeedResp(val status: String, val totalResults: Int, val articles: List<Articles>)
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class Articles(
     val source: Source?,
     val author: String?,
@@ -13,5 +14,5 @@ data class Articles(
     val content: String?
 )
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class Source(val id: String?, val name: String)

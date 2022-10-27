@@ -2,25 +2,52 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greeting()
-    let sum  = MathEngine.init().sum(a: 20, b: 20)
-	var body: some View {
-        VStack(alignment: .trailing, spacing: 10) {
-            Text("I am in iOs:\(UIDevice.current.systemVersion)")
-            Text("I am from KMP")
-                 HStack {
-                     Text("I am Deepak KK").font(.subheadline)
-                     Spacer()
-                     Text("Test").font(.subheadline)
-                 }.padding()
+	
+    @ObservedObject
+    private var homeViewModel = HomeViewModel()
+    var body: some View {
+        VStack() {
+            NavigationView {
+                uiState().navigationTitle("Hello KMM Network")
+            }
+        }.onAppear() {
+            homeViewModel.loadingNewsFeed()
         }
-	}
+    }
+    
+    private func uiState()->AnyView {
+        switch homeViewModel.viewModelState {
+        case ViewModelState.Loading:
+            return AnyView(ZStack {
+                ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .green)).scaleEffect(2)
+            }.multilineTextAlignment(.center))
+            
+        case ViewModelState.FeedData(let articles):
+            return AnyView(
+                
+                List(0 ..< articles.count-1) { index in
+                    NavigationLink {
+                        NewsDataView(article: articles[index])
+                    } label: {
+                        HomeView(article: articles[index])
+                        
+                    }
+                }
+            )
+        case ViewModelState.Error(let message):
+            return AnyView (
+                Text("Error loading in data:\(message)")
+            )
+        }
+        
+        
+    }
 }
 
-struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-        Group {
-            ContentView()
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            Group {
+                ContentView()
+            }
         }
-	}
-}
+    }
