@@ -8,15 +8,10 @@ struct ContentView: View {
     var body: some View {
         VStack() {
             NavigationView {
-                //uiState().navigationTitle("Hello KMM Network")
-//                List(homeViewModel.getDummyData(count: 10000), id: \.self) { item in
-//                   Text(item)
-//                }
                 uiState().navigationTitle("Hello Swift UI")
             }
         }.onAppear() {
             homeViewModel.loadingNewsFeed()
-           // homeViewModel.getDummyData(count: 100)
         }
     }
     
@@ -31,7 +26,6 @@ struct ContentView: View {
             return AnyView(
                 
                 List(articles, id: \.self.title) { article in
-                    //Text(article.title ?? "")
                     NavigationLink {
                         NewsDataView(article: article)
                     } label: {
@@ -44,28 +38,7 @@ struct ContentView: View {
             return AnyView (
                 Text("Error loading in data:\(message)")
             )
-        case ViewModelState.SimlpeData(let data):
-            debugPrint("Simple Data")
-            return AnyView(Text("Sample data:"))
         }
-    }
-    private func sampleNavUiState() -> AnyView {
-        switch homeViewModel.simpleDataState {
-        case ViewModelState.Loading:
-            return AnyView(ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .blue)))
-        
-        case ViewModelState.FeedData(let dataSet):
-            return AnyView(Text("Hello Data"))
-    
-        case ViewModelState.Error(let message) :
-            return AnyView(Text("Hello Data"))
-        case ViewModelState.SimlpeData(let data):
-            return AnyView(
-                List(data, id: \.self) { item in
-                   Text(item)
-                }
-            )
-    }
     }
 }
 
