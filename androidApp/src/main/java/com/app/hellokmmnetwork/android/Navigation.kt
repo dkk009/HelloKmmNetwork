@@ -5,7 +5,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.app.hellokmmnetwork.android.detail.NewsDetailScreen
-import com.app.hellokmmnetwork.android.home.AppViewModel
 import com.app.hellokmmnetwork.android.home.HomeScreen
 
 sealed class Screen(val route: String) {

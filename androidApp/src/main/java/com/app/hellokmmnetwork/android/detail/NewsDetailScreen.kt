@@ -21,7 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.app.hellokmmnetwork.android.R
-import com.app.hellokmmnetwork.android.home.AppViewModel
+import com.app.hellokmmnetwork.android.AppViewModel
 
 @Composable
 fun NewsDetailScreen(viewModel: AppViewModel) {

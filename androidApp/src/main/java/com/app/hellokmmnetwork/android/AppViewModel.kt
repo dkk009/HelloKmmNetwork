@@ -1,4 +1,4 @@
-package com.app.hellokmmnetwork.android.home
+package com.app.hellokmmnetwork.android
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
