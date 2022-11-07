@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.app.hellokmmnetwork.Greeting
+import com.app.hellokmmnetwork.android.home.AppViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Composable
@@ -59,7 +60,7 @@ fun MyApplicationTheme(
 }
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: AppViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

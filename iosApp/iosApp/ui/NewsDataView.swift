@@ -21,8 +21,7 @@ struct NewsDataView: View {
                     Text("Author:\(author.description)").font(.body)
                 }
                 Image(uiImage: article.urlToImage?.loadUrlImage() ?? UIImage()).resizable().frame(width: 100, height:100).fixedSize().padding(8)
-                
-            }
+            }.padding(20)
         }
     }
 }

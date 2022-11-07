@@ -12,4 +12,5 @@ enum ViewModelState{
     case Loading
     case FeedData([Articles])
     case Error(msg:String)
+    case SimlpeData([String])
 }

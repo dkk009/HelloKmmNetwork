@@ -1,7 +1,10 @@
 package com.app.hellokmmnetwork.android.home
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,13 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.app.hellokmmnetwork.android.Screen
 import com.app.hellokmmnetwork.news.data.entity.Articles
-import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun HomeScreen(navHostController: NavHostController) {
-    val homeViewModel = getViewModel<HomeViewModel>()
-    val viewModelState = homeViewModel.newsFeedState.collectAsState()
+fun HomeScreen(navHostController: NavHostController, appViewModel: AppViewModel) {
+    val viewModelState = appViewModel.newsFeedState.collectAsState()
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         TopAppBar {
             Text(text = "News Feed", modifier = Modifier.padding(horizontal = 20.dp))
@@ -47,10 +49,15 @@ fun HomeScreen(navHostController: NavHostController) {
             is NewsFeedState.Success -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    contentPadding = PaddingValues(vertical = 20.dp)
                 ) {
                     items(items = (viewModelState.value as NewsFeedState.Success).data) { data ->
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            NewsArticleItem(data = data)
+                            NewsArticleItem(data = data) {
+                                appViewModel.setUserSelectedArticle(data)
+                                navHostController.navigate(Screen.DetailScreen.route)
+                            }
                             Divider(
                                 color = Color.Gray,
                                 thickness = 2.dp,
@@ -78,8 +85,12 @@ fun HomeScreen(navHostController: NavHostController) {
 }
 
 @Composable
-private fun NewsArticleItem(data: Articles) {
-    Row(modifier = Modifier.fillMaxWidth()) {
+private fun NewsArticleItem(data: Articles, onClick: () -> Unit = {}) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .clickable {
+            onClick.invoke()
+        }) {
         AsyncImage(
             model = data.urlToImage,
             contentDescription = null,

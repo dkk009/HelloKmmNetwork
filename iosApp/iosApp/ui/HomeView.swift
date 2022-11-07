@@ -12,11 +12,17 @@ struct HomeView: View {
     let article: Articles
     var body: some View {
         HStack {
-            Image(uiImage: article.urlToImage?.loadUrlImage() ?? UIImage())
-                .resizable()
-                .frame(width: 48, height: 48)
-                .fixedSize()
-                .padding(4)
+//            Image(uiImage: article.urlToImage?.loadUrlImage() ?? UIImage())
+//                .resizable()
+//                .frame(width: 48, height: 48)
+//                .fixedSize()
+//                .padding(4)
+            AsyncImage(url: URL(string: article.urlToImage ?? ""),content:  {image in
+                image.resizable().scaledToFill()
+            } , placeholder: {
+                Color.purple.opacity(0.1)
+            }).frame(width: 60, height:60).cornerRadius(8).padding(8)
+
             VStack {
                 Text(article.title ?? "").font(.title3)
                 Text(article.content ?? "").font(.body).lineLimit(2)

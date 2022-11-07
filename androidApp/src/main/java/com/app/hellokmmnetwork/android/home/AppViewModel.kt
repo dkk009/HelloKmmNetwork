@@ -1,6 +1,5 @@
 package com.app.hellokmmnetwork.android.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.hellokmmnetwork.network.AppRequest
@@ -17,39 +16,38 @@ sealed class NewsFeedState {
 
 }
 
-class HomeViewModel(private val newsFeedUseCase: NewsFeedUseCase) : ViewModel() {
+class AppViewModel(private val newsFeedUseCase: NewsFeedUseCase) : ViewModel() {
     var newsFeedState: MutableStateFlow<NewsFeedState> =
         MutableStateFlow(NewsFeedState.None)
         private set
+    var selectedArticle: MutableStateFlow<Articles?> = MutableStateFlow(null)
+        private set
 
     init {
-        Log.d("HomeViewModel", "Usecase:$newsFeedUseCase")
         getNewsFeed()
     }
 
-    fun getNewsFeed() {
+    private fun getNewsFeed() {
         viewModelScope.launch {
             newsFeedState.value = NewsFeedState.Loading
-            when(val data = newsFeedUseCase.invoke()) {
-                is AppRequest.Result<*>->{
+            when (val data = newsFeedUseCase.invoke()) {
+                is AppRequest.Result<*> -> {
                     (data.result as List<Articles>).run {
                         newsFeedState.value = NewsFeedState.Success(this)
                     }
                 }
-                is AppRequest.Error->{
-                    newsFeedState.value = NewsFeedState.Error(data.error.message ?: "Something went wrong")
+                is AppRequest.Error -> {
+                    newsFeedState.value =
+                        NewsFeedState.Error(data.error.message ?: "Something went wrong")
                 }
-                is AppRequest.Loading->{
+                is AppRequest.Loading -> {
                     newsFeedState.value = NewsFeedState.Loading
                 }
             }
-            /*newsFeedUseCase.invoke().onFailure {
-                Log.d("HomeViewModel", "NewsFeed:$it")
-                newsFeedState.value = NewsFeedState.Error(it.message ?: "Something went wrong")
-            }.onSuccess {
-                newsFeedState.value = NewsFeedState.Success(it)
-                Log.d("HomeViewModel", "NewsFeed:$it")
-            }*/
         }
+    }
+
+    fun setUserSelectedArticle(articles: Articles) {
+        selectedArticle.value = articles
     }
 }
