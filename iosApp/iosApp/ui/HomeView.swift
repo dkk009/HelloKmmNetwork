@@ -12,11 +12,6 @@ struct HomeView: View {
     let article: Articles
     var body: some View {
         HStack {
-//            Image(uiImage: article.urlToImage?.loadUrlImage() ?? UIImage())
-//                .resizable()
-//                .frame(width: 48, height: 48)
-//                .fixedSize()
-//                .padding(4)
             AsyncImage(url: URL(string: article.urlToImage ?? ""),content:  {image in
                 image.resizable().scaledToFill()
             } , placeholder: {
