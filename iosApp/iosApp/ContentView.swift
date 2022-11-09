@@ -8,7 +8,7 @@ struct ContentView: View {
     var body: some View {
         VStack() {
             NavigationView {
-                uiState().navigationTitle("Hello Swift UI")
+                uiState().navigationTitle("News Feed")
             }
         }.onAppear() {
             homeViewModel.loadingNewsFeed()
