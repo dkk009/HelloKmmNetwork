@@ -1,5 +1,6 @@
 package com.app.hellokmmnetwork.di
 
+import com.app.hellokmmnetwork.database.configureRealmDataBase
 import com.app.hellokmmnetwork.network.createHttpClient
 import com.app.hellokmmnetwork.network.createJson
 import com.app.hellokmmnetwork.news.data.datasource.RemoteNewsDataSource
@@ -23,8 +24,9 @@ fun initKoin() = initKoin {  }
 val commonModule = module {
     single { createJson() }
     single { createHttpClient(get()) }
+    single { configureRealmDataBase() }
     factory<RemoteNewsDataSource> { RemoteNewsDataSourceImpl(get()) }
-    factory<NewsFeedRepository> { NewsFeedRepositoryImpl(get()) }
+    factory<NewsFeedRepository> { NewsFeedRepositoryImpl(get(), get()) }
     factory { NewsFeedUseCase(get()) }
 }
 

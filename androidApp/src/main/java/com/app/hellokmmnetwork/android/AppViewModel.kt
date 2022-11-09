@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.app.hellokmmnetwork.network.AppRequest
 import com.app.hellokmmnetwork.news.data.entity.Articles
 import com.app.hellokmmnetwork.news.usecase.NewsFeedUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -28,7 +29,7 @@ class AppViewModel(private val newsFeedUseCase: NewsFeedUseCase) : ViewModel() {
     }
 
     private fun getNewsFeed() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             newsFeedState.value = NewsFeedState.Loading
             when (val data = newsFeedUseCase.invoke()) {
                 is AppRequest.Result<*> -> {

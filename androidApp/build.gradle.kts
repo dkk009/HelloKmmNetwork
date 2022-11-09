@@ -56,4 +56,5 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-compose:$koinAndroidCompose")
 
     implementation("io.coil-kt:coil-compose:$coilVersion")
+    compileOnly("io.realm.kotlin:library-base:1.4.0")
 }

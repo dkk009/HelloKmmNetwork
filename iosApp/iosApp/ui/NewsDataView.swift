@@ -13,7 +13,7 @@ struct NewsDataView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text(article.title ?? "").font(.title)
+                Text(article.title ).font(.title)
                 Spacer(minLength: 10)
                 Text(article.content ?? "").font(.body)
                 Spacer(minLength: 10)
@@ -39,6 +39,6 @@ extension String {
 }
 struct NewsDataView_Previews: PreviewProvider {
     static var previews: some View {
-        NewsDataView(article: Articles.init(source: nil, author: "Deepak KK", title: "Test Title", description: "", urlToImage: "", content: ""))
+        NewsDataView(article: Articles.init())
     }
 }

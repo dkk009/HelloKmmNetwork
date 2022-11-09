@@ -19,7 +19,7 @@ struct HomeView: View {
             }).frame(width: 60, height:60).cornerRadius(8).padding(8)
 
             VStack {
-                Text(article.title ?? "").font(.title3)
+                Text(article.title ).font(.title3)
                 Text(article.content ?? "").font(.body).lineLimit(2)
             }
             
@@ -29,6 +29,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(article: Articles.init(source: nil, author: "Deepak KK", title: "Test Title", description: "", urlToImage: "", content: ""))
+        HomeView(article: Articles.init())
     }
 }

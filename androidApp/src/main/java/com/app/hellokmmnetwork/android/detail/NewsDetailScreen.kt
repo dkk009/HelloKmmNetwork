@@ -46,7 +46,7 @@ fun NewsDetailScreen(viewModel: AppViewModel) {
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             article?.value?.let {
-                Text(text = it.title ?: "", style = MaterialTheme.typography.h5)
+                Text(text = it.title?:"" , style = MaterialTheme.typography.h5)
                 Text(text = it.content ?: "", style = MaterialTheme.typography.body1)
                 Text(text = it.description ?: "", style = MaterialTheme.typography.body2)
                 AsyncImage(
